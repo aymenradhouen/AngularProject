@@ -6,23 +6,30 @@ import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
-import { EventsComponent } from './events/events.component';
-import { SpecialEventsComponent } from './special-events/special-events.component';
+import {HttpClientModule} from "@angular/common/http";
+import {AuthService} from "./auth.service";
+import { ArticleComponent } from './article/article.component';
+import { AddArticleComponent } from './add-article/add-article.component';
+import { EditArticleComponent } from './edit-article/edit-article.component';
+import { DeleteArticleComponent } from './delete-article/delete-article.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     RegisterComponent,
     LoginComponent,
-    EventsComponent,
-    SpecialEventsComponent
+    ArticleComponent,
+    AddArticleComponent,
+    EditArticleComponent,
+    DeleteArticleComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
+    HttpClientModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
