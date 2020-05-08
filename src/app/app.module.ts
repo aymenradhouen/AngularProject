@@ -3,15 +3,21 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { FormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
-import {HttpClientModule} from "@angular/common/http";
-import {AuthService} from "./auth.service";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
+import {AuthService} from "./services/auth.service";
 import { ArticleComponent } from './article/article.component';
 import { AddArticleComponent } from './add-article/add-article.component';
 import { EditArticleComponent } from './edit-article/edit-article.component';
 import { DeleteArticleComponent } from './delete-article/delete-article.component';
+import {ArticleService} from "./services/article.service";
+import {AuthGuard} from "./helpers/auth.guard";
+import { HomeComponent } from './home/home.component';
+import { ProfileComponent } from './profile/profile.component';
+import {JwtInterceptor} from "./helpers/jwt.interceptor";
+import {ErrorInterceptor} from "./helpers/error.interceptor";
 
 @NgModule({
   declarations: [
@@ -22,14 +28,21 @@ import { DeleteArticleComponent } from './delete-article/delete-article.componen
     AddArticleComponent,
     EditArticleComponent,
     DeleteArticleComponent,
+    HomeComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule
   ],
-  providers: [AuthService],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+  ],
+
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -241,31 +241,4 @@
   margin-bottom: 17px;
 }
 
-.btn{ border-radius: 50%; line-height:18px;  }
-
-
-.sidenav {
-  width: 220px;
-  position: fixed;
-  left: 10px;
-}
-
-.sidenav a {
-  padding: 6px 8px 6px 16px;
-  text-decoration: none;
-}
-
-.sidenav a:hover {
-  color: #064579;
-}
-
-.main {
-  margin-left: 140px; /* Same width as the sidebar + left position in px */
-  font-size: 28px; /* Increased text to enable scrolling */
-  padding: 0px 10px;
-}
-
-@media screen and (max-height: 450px) {
-  .sidenav {padding-top: 15px;}
-  .sidenav a {font-size: 18px;}
-}
+.btn{ border-radius: 50%; width:32px; height:32px; line-height:18px;  }

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from "../auth.service";
-import {Router} from '@angular/router';
-import {NgForm} from "@angular/forms";
+import { AuthService } from "../services/auth.service";
+import {ActivatedRoute, Router} from '@angular/router';
+import {FormBuilder, FormGroup, NgForm, Validators} from "@angular/forms";
+import {first} from "rxjs/operators";
 
 
 @Component({
@@ -10,26 +11,51 @@ import {NgForm} from "@angular/forms";
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-
-  loginUserData = {};
+  loginForm: FormGroup;
+  loading = false;
+  submitted = false;
+  returnUrl: string;
+  error = '';
 
   constructor(private authService: AuthService,
+              private formBuilder: FormBuilder,
+              private route: ActivatedRoute,
               private router: Router) {
+    if (this.authService.currentUserValue) {
+      this.router.navigate(['/']);
+    }
   }
 
   ngOnInit() {
+    this.loginForm = this.formBuilder.group({
+      username: ['', Validators.required],
+      password: ['', Validators.required]
+    });
+
+    // get return url from route parameters or default to '/'
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
   }
 
-  loginUser(loginForm: NgForm) {
-    this.authService.login(this.loginUserData)
+  get f() { return this.loginForm.controls; }
+
+  onSubmit() {
+    this.submitted = true;
+
+    // stop here if form is invalid
+    if (this.loginForm.invalid) {
+      return;
+    }
+
+    this.loading = true;
+    this.authService.login(this.f.username.value, this.f.password.value)
+      .pipe(first())
       .subscribe(
-        (response) => {
-          localStorage.setItem('token', response.id);
-          this.router.navigate(['/']);
+        data => {
+          this.router.navigate([this.returnUrl]);
         },
-        (error) => {
-          console.log(error);
-        }
-      );
+        error => {
+          this.error = error;
+          this.loading = false;
+        });
   }
 }
