@@ -15,7 +15,8 @@ export class ArticleService {
   constructor(private http: HttpClient, private authenticationService: AuthService) { }
 
   getArticles(): Observable<any>{
-    const headers = new HttpHeaders({ 'Authorization:': 'Bearer ' + this.token });
+    const headers = new HttpHeaders();
+    headers.append('Authorization', 'Bearer ' + this.token );
     return this.http.get<any>(this.uri,{headers});
   }
 

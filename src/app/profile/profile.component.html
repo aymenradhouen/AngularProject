@@ -1,0 +1,125 @@
+
+<br><br>
+<div class="container">
+  <div class="row">
+
+    <div class="col-sm-7">
+      <br><br><br>
+      <div class="tab-content">
+        <div class="tab-pane active" id="home">
+          <form class="form" (submit)="updateProfile(firstName, lastName, about, hobbies, image, imageCouverture, facebookLink, twitterLink)">
+            <div class="form-group">
+              <div class="row">
+
+              <div class="col-6">
+                <label><strong>First name</strong></label>
+                <input type="text" class="form-control" [(ngModel)]="firstName" value="{{user.firstName}}" name="firstName">
+              </div>
+
+                  <div class="col-6">
+                    <label><strong>Last name</strong></label>
+                    <input type="text" class="form-control" [(ngModel)]="lastName" value="{{user.lastName}}" name="lastName">
+                  </div>
+
+            </div>
+
+            </div>
+
+            <div class="form-group">
+              <div class="row">
+              <div class="col-6">
+                <label><strong>Profile picture</strong></label>
+                <div class="row">
+                  <div class="col-8">
+                    <input type="file" class="form-control"[(ngModel)]="image" name="image">
+                  </div>
+                  <div class="col-4">
+                    <img src="{{user.image}}" alt="" width="50px" height="50px">
+                  </div>
+                </div>
+
+
+              </div>
+
+
+              <div class="col-6">
+                <label><strong>Couverture picture</strong></label>
+                <div class="row">
+                  <div class="col-8">
+                    <input type="file" class="form-control" [(ngModel)]="imageCouverture" name="imageCouverture">
+                  </div>
+                  <div class="col-4">
+                    <img src="{{user.imageCouverture}}" alt="" width="50px" height="50px">
+                  </div>
+                </div>
+
+              </div>
+            </div>
+            </div>
+
+            <div class="form-group">
+
+              <div class="col-xs-6">
+                <label><strong>About</strong></label>
+                <input type="text" class="form-control" value="{{user.about}}" [(ngModel)]="about" name="about">
+              </div>
+            </div>
+            <div class="form-group">
+
+              <div class="col-xs-6">
+                <label><strong>Hobbies</strong></label>
+                <input type="text" class="form-control" value="{{user.hobbies}}" [(ngModel)]="hobbies" name="hobbies">
+              </div>
+            </div>
+            <div class="form-group">
+
+              <div class="col-xs-6">
+                <label><strong>Facebook Link</strong></label>
+                <input type="text" class="form-control" value="{{user.facebookLink}}" [(ngModel)]="facebookLink" name="facebookLink">
+              </div>
+            </div>
+            <div class="form-group">
+
+              <div class="col-xs-6">
+                <label><strong>Twitter Link</strong></label>
+                <input type="text" class="form-control" value="{{user.twitterLink}}" [(ngModel)]="twitterLink" name="twitterLink">
+              </div>
+            </div>
+            <div class="form-group">
+                <br>
+                <button class="btn btn-success" type="submit"> Save</button>
+            </div>
+          </form>
+
+          <hr>
+
+        </div><!--/tab-pane-->
+
+      </div><!--/tab-pane-->
+    </div><!--/tab-content-->
+    <div class="col-sm-3">
+      <br><br>
+
+
+      <ul class="list-group">
+        <li class="list-group-item text-muted">Activity <i class="fa fa-dashboard fa-1x"></i></li>
+        <li class="list-group-item text-right"><span class="pull-left"><strong>Shares</strong></span> 125</li>
+        <li class="list-group-item text-right"><span class="pull-left"><strong>Likes</strong></span> 13</li>
+        <li class="list-group-item text-right"><span class="pull-left"><strong>Posts</strong></span> 37</li>
+        <li class="list-group-item text-right"><span class="pull-left"><strong>Followers</strong></span> 78</li>
+      </ul>
+
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <a class="btn btn-social-icon btn-facebook" href="{{user.facebookLink}}">
+            <span class="fa fa-facebook"></span>
+          </a>
+          <a class="btn btn-social-icon btn-twitter" href="{{user.twitterLink}}">
+            <span class="fa fa-twitter"></span>
+          </a>
+        </div>
+
+    </div><!--/col-3-->
+
+  </div><!--/col-9-->
+</div>

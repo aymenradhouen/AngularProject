@@ -2,15 +2,16 @@ export class User {
   id: number;
   username: String;
   password: String;
+  email: String;
   loginName: String;
-  first_name: String;
-  last_name: String;
+  firstName: String;
+  lastName: String;
   about: String;
   hobbies: String;
   image: String;
-  image_couverture: String;
-  facebook_link: String;
-  twitter_link: String;
-  created_at: Date;
+  imageCouverture: String;
+  facebookLink: String;
+  twitterLink: String;
+  createdAt: Date;
   token?: String;
 }

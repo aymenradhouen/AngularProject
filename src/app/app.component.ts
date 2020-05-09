@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {AuthService} from "./services/auth.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {User} from "./models/User";
+import {UserService} from "./services/user.service";
 
 @Component({
   selector: 'app-root',
@@ -10,13 +11,16 @@ import {User} from "./models/User";
 })
 export class AppComponent {
   title = 'ngApp';
+  public id: number;
   currentUser: User;
-  user: Object;
+  user : User;
 
   constructor(private router: Router,
               private authenticationService: AuthService,
-              private activatedRoute: ActivatedRoute) {
+              private activatedRoute: ActivatedRoute,
+              private userService: UserService) {
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
+
   }
 
 
@@ -28,7 +32,7 @@ export class AppComponent {
   ngOnInit() {
     this.activatedRoute.params.subscribe(
       (parametre) => {
-        this.authenticationService.getUser(parametre.id).subscribe(
+        this.userService.getUser(localStorage.getItem("username")).subscribe(
           (user) => this.user = user['result'],
           (error) => this.router.navigate(['/'])
         );

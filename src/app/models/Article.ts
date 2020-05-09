@@ -3,4 +3,5 @@ export class Article {
   title: String;
   content: String;
   image: String;
+  createdAt: Date;
 }

@@ -22,7 +22,6 @@ export class AuthService {
   }
 
   public get currentUserValue(): User {
-
     return this.currentUserSubject.value;
   }
 
@@ -35,6 +34,7 @@ export class AuthService {
     return this.http.post<any>(this._loginUrl, { username, password })
       .pipe(map(response =>{
         localStorage.setItem('currentUser', JSON.stringify(response));
+        localStorage.setItem('username', username);
         this.currentUserSubject.next(response);
         return response;
       }));
@@ -43,14 +43,11 @@ export class AuthService {
   logout() {
     // remove user from local storage to log user out
     localStorage.removeItem('currentUser');
+    localStorage.removeItem('username');
     this.currentUserSubject.next(null);
   }
 
-  getUser(id: any) {
-    const headers = new HttpHeaders();
-    headers.append('Authorization', 'Bearer ' + this.currentUser );
-    return this.http.get(this.uriUser + '/' + id,{headers});
-  }
+
 
 
 }

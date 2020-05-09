@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ArticleService} from "../services/article.service";
 import {Article} from "../models/Article";
+import {User} from "../models/User";
 
 @Component({
   selector: 'app-home',
@@ -12,6 +13,7 @@ export class HomeComponent implements OnInit {
   articles: Article[] = [];
   loading = false;
   errorMessage: string;
+  user : User;
   constructor(private articleService: ArticleService) { }
 
   getArticles() {
@@ -26,7 +28,6 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getArticles();
-  }
+    this.getArticles();}
 
 }
