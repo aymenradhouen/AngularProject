@@ -23,7 +23,7 @@ export class UserService {
     const headers = new HttpHeaders();
     headers.append('content-type', 'application/json');
     headers.append('Authorization', 'Bearer ' + this.authService.currentUser );
-    return this.http.put(this.uriUser + '/' + username , JSON.stringify(user),{headers});
+    return this.http.patch(this.uriUser + '/' + username , JSON.stringify(user),{headers});
   }
 
 }

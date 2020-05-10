@@ -40,7 +40,8 @@ export class ProfileComponent implements OnInit {
     let userr : any;
     userr = {firstName: firstName, lastName: lastName, about: about, hobbies: hobbies, image: image, imageCouverture: imageCouverture, facebookLink: facebookLink, twitterLink: twitterLink};
     this.userService.updateUser(userr,localStorage.getItem('username')).subscribe((result => {
-      this.router.navigate(['/profile']);
+      console.log(userr);
+      window.location.reload();
     }) , editError => this.errors = editError);
   }
 }

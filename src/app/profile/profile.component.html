@@ -1,5 +1,4 @@
 
-<br><br>
 <div class="container">
   <div class="row">
 
@@ -13,12 +12,12 @@
 
               <div class="col-6">
                 <label><strong>First name</strong></label>
-                <input type="text" class="form-control" [(ngModel)]="firstName" value="{{user.firstName}}" name="firstName">
+                <input type="text" class="form-control" [(ngModel)]="user.firstName" name="firstName" value="{{user.firstName}}">
               </div>
 
                   <div class="col-6">
                     <label><strong>Last name</strong></label>
-                    <input type="text" class="form-control" [(ngModel)]="lastName" value="{{user.lastName}}" name="lastName">
+                    <input type="text" class="form-control" [(ngModel)]="user.lastName" name="lastName" value="{{user.lastName}}">
                   </div>
 
             </div>
@@ -31,10 +30,10 @@
                 <label><strong>Profile picture</strong></label>
                 <div class="row">
                   <div class="col-8">
-                    <input type="file" class="form-control"[(ngModel)]="image" name="image">
+                    <input type="file" class="form-control"[(ngModel)]="user.image" name="image" value="{{user.image}}">
                   </div>
                   <div class="col-4">
-                    <img src="{{user.image}}" alt="" width="50px" height="50px">
+                    <img src="{{image}}" width="50px" height="50px" alt="">
                   </div>
                 </div>
 
@@ -46,10 +45,10 @@
                 <label><strong>Couverture picture</strong></label>
                 <div class="row">
                   <div class="col-8">
-                    <input type="file" class="form-control" [(ngModel)]="imageCouverture" name="imageCouverture">
+                    <input type="file" class="form-control" [(ngModel)]="user.imageCouverture" name="imageCouverture" value="{{user.imageCouverture}}">
                   </div>
                   <div class="col-4">
-                    <img src="{{user.imageCouverture}}" alt="" width="50px" height="50px">
+                    <img src="{{imageCouverture}}" width="50px" height="50px" alt="">
                   </div>
                 </div>
 
@@ -61,28 +60,28 @@
 
               <div class="col-xs-6">
                 <label><strong>About</strong></label>
-                <input type="text" class="form-control" value="{{user.about}}" [(ngModel)]="about" name="about">
+                <input type="text" class="form-control" [(ngModel)]="user.about" name="about" value="{{user.about}}">
               </div>
             </div>
             <div class="form-group">
 
               <div class="col-xs-6">
                 <label><strong>Hobbies</strong></label>
-                <input type="text" class="form-control" value="{{user.hobbies}}" [(ngModel)]="hobbies" name="hobbies">
+                <input type="text" class="form-control" [(ngModel)]="user.hobbies" name="hobbies" value="{{user.hobbies}}">
               </div>
             </div>
             <div class="form-group">
 
               <div class="col-xs-6">
                 <label><strong>Facebook Link</strong></label>
-                <input type="text" class="form-control" value="{{user.facebookLink}}" [(ngModel)]="facebookLink" name="facebookLink">
+                <input type="text" class="form-control" [(ngModel)]="user.facebookLink" name="facebookLink" value="{{user.facebookLink}}">
               </div>
             </div>
             <div class="form-group">
 
               <div class="col-xs-6">
                 <label><strong>Twitter Link</strong></label>
-                <input type="text" class="form-control" value="{{user.twitterLink}}" [(ngModel)]="twitterLink" name="twitterLink">
+                <input type="text" class="form-control" [(ngModel)]="user.twitterLink" name="twitterLink" value="{{user.twitterLink}}">
               </div>
             </div>
             <div class="form-group">
@@ -111,10 +110,10 @@
 
       <div class="panel panel-default">
         <div class="panel-body">
-          <a class="btn btn-social-icon btn-facebook" href="{{user.facebookLink}}">
+          <a class="btn btn-social-icon btn-facebook" href="{{facebookLink}}">
             <span class="fa fa-facebook"></span>
           </a>
-          <a class="btn btn-social-icon btn-twitter" href="{{user.twitterLink}}">
+          <a class="btn btn-social-icon btn-twitter" href="{{twitterLink}}">
             <span class="fa fa-twitter"></span>
           </a>
         </div>

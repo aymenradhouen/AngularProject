@@ -10,7 +10,7 @@ import {User} from "../models/User";
 })
 export class AuthService {
 
-  private _registerUrl = "http://localhost:8000/api/users/register";
+  private _registerUrl = "http://localhost:8000/register";
   private _loginUrl = "http://localhost:8000/api/login_check";
   private uriUser = "http://localhost:8000/api/users";
   private currentUserSubject: BehaviorSubject<User>;
@@ -27,7 +27,9 @@ export class AuthService {
 
   registerUser(user)
   {
-    return this.http.post<any>(this._registerUrl,user);
+    const headers = new HttpHeaders();
+    headers.append('Content-Type', 'application/json');
+    return this.http.post<any>(this._registerUrl,user,{headers});
   }
 
   login(username: string, password:string) {

@@ -20,11 +20,12 @@ export class ArticleService {
     return this.http.get<any>(this.uri,{headers});
   }
 
-  addArticle(article: Article) {
+  addArticle(article: Article, email) {
     const headers = new HttpHeaders();
-    headers.append('content-type', 'application/json');
+    headers.append('Content-type', 'application/json');
+    headers.append('Content-Type', 'multipart/form-data');
     headers.append('Authorization', 'Bearer ' + this.token );
-    return this.http.post(this.uri, JSON.stringify(article),{headers});
+    return this.http.post(this.uri + '/' + email, JSON.stringify(article),{headers});
   }
 
   updateArticle(article: Article , id) {
