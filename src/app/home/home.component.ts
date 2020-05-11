@@ -10,6 +10,7 @@ import {User} from "../models/User";
 })
 export class HomeComponent implements OnInit {
 
+  private url = "http://localhost:8000/articlesUploads/";
   articles: Article[] = [];
   loading = false;
   errorMessage: string;

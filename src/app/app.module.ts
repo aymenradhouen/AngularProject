@@ -18,6 +18,7 @@ import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
 import {JwtInterceptor} from "./helpers/jwt.interceptor";
 import {ErrorInterceptor} from "./helpers/error.interceptor";
+import { ListArticleComponent } from './list-article/list-article.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import {ErrorInterceptor} from "./helpers/error.interceptor";
     DeleteArticleComponent,
     HomeComponent,
     ProfileComponent,
+    ListArticleComponent,
   ],
   imports: [
     BrowserModule,

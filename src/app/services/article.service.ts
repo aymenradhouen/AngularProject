@@ -22,10 +22,9 @@ export class ArticleService {
 
   addArticle(article: Article, email) {
     const headers = new HttpHeaders();
-    headers.append('Content-type', 'application/json');
-    headers.append('Content-Type', 'multipart/form-data');
+    headers.append('Content-Type', 'application/json');
     headers.append('Authorization', 'Bearer ' + this.token );
-    return this.http.post(this.uri + '/' + email, JSON.stringify(article),{headers});
+    return this.http.post(this.uri + '/' + email, JSON.stringify(article),{headers: headers});
   }
 
   updateArticle(article: Article , id) {
@@ -37,8 +36,15 @@ export class ArticleService {
 
   deleteArticle(id: any) {
     const headers = new HttpHeaders();
+    headers.append('content-type', 'application/json');
     headers.append('Authorization', 'Bearer ' + this.token );
     return this.http.delete(this.uri + '/' + id,{headers});
+  }
+
+  profileArticle(email) {
+    const headers = new HttpHeaders();
+    headers.append('Authorization', 'Bearer ' + this.token );
+    return this.http.get(this.uri + '/list/' + email,{headers});
   }
 
 

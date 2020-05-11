@@ -9,6 +9,7 @@ import {EditArticleComponent} from "./edit-article/edit-article.component";
 import {AuthGuard} from "./helpers/auth.guard";
 import {HomeComponent} from "./home/home.component";
 import {ProfileComponent} from "./profile/profile.component";
+import {ListArticleComponent} from "./list-article/list-article.component";
 
 
 const routes: Routes = [
@@ -43,6 +44,11 @@ const routes: Routes = [
   {
     path: 'profile',
     component: ProfileComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'profileArticle',
+    component: ListArticleComponent,
     canActivate: [AuthGuard]
   }
 

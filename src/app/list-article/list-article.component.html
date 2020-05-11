@@ -1,0 +1,30 @@
+<br>
+<div class="container">
+  <h1>La liste de mes publications</h1>
+  <br>
+  <table class="table">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Title</th>
+    <th scope="col">Image</th>
+    <th scope="col">Content</th>
+    <th scope="col">Creation Date</th>
+    <th scope="col">Action</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let article of articles">
+    <th scope="row">{{article.id}}</th>
+    <td>{{article.title}}</td>
+    <td><img src="{{url}}/{{article.image}}" alt="" width="50px" height="50px"></td>
+    <td> {{ (article.content.length>80)? (article.content | slice:0:80)+'...':(article.content) }}</td>
+    <td>{{article.createdAt | date: 'dd/MM/yyyy'}}</td>
+    <td><button (click)="deleteArticle(article.id)" class="btn btn-danger" title="Delete"><i class="fa fa-eraser"></i></button>
+        <button class="btn btn-primary" title="Edit"><i class="fa fa-edit"></i></button>
+    </td>
+    <td></td>
+  </tr>
+  </tbody>
+</table>
+</div>

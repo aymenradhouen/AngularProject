@@ -29,7 +29,20 @@ export class AddArticleComponent implements OnInit {
   }
 
   onFileChange(event) {
-    this.selectedFile = <File>event.target.files[0];
+    let reader = new FileReader();
+    if(event.target.files && event.target.files.length > 0) {
+      let file = event.target.files[0];
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        if (typeof reader.result === "string") {
+          this.postForm.get('image').setValue({
+            filename: file.name,
+            filetype: file.type,
+            value: reader.result.split(',')[1]
+          })
+        }
+      };
+    }
   }
 
 
@@ -43,16 +56,13 @@ export class AddArticleComponent implements OnInit {
       return;
     }
 
-    let formModel: any = new FormData();
-    formModel.append('title', this.postForm.get('title').value);
-    formModel.append('content', this.postForm.get('content').value);
-    formModel.append('image', this.selectedFile, this.selectedFile.name);
-    this.articleService.addArticle(formModel, localStorage.getItem('username'))
+
+    this.articleService.addArticle(this.postForm.value, localStorage.getItem('username'))
       .subscribe(
         res => console.log(res),
         err => this.errorMessage= <any>err
       )
-    // this.router.navigate(['/']);
+    this.router.navigate(['/']);
   }
 
 
