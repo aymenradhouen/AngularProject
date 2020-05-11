@@ -17,7 +17,7 @@
 
         <div class="form-group">
           <label>Image <span class="require">*</span></label>
-          <input type="file" formControlName="image" class="form-control" id="image" [ngClass]="{ 'is-invalid': submitted && f.image.errors }" (change)="onFileChange($event)"/>
+          <input type="file" formControlName="image" class="form-control" id="image" accept="image/jpeg, image/jpg, image/png" [ngClass]="{ 'is-invalid': submitted && f.image.errors }" (change)="onFileChange($event)"/>
           <div *ngIf="submitted && f.image.errors" class="invalid-feedback">
             <div *ngIf="f.image.errors.required">Image is required</div>
           </div>
