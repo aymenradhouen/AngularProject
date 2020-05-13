@@ -19,6 +19,8 @@ import { ProfileComponent } from './profile/profile.component';
 import {JwtInterceptor} from "./helpers/jwt.interceptor";
 import {ErrorInterceptor} from "./helpers/error.interceptor";
 import { ListArticleComponent } from './list-article/list-article.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {DataTablesModule} from "angular-datatables";
 
 @NgModule({
   declarations: [
@@ -38,7 +40,9 @@ import { ListArticleComponent } from './list-article/list-article.component';
     FormsModule,
     HttpClientModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    DataTablesModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
