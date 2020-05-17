@@ -3,6 +3,7 @@ import {AuthService} from "./services/auth.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {User} from "./models/User";
 import {UserService} from "./services/user.service";
+import {BehaviorSubject} from "rxjs";
 
 @Component({
   selector: 'app-root',
@@ -13,7 +14,10 @@ export class AppComponent {
   title = 'ngApp';
   public id: number;
   currentUser: User;
-  user : User;
+  user : User[] = [];
+  errorMessage: string;
+  private results = new BehaviorSubject([]);
+
 
   constructor(private router: Router,
               private authenticationService: AuthService,
@@ -23,6 +27,9 @@ export class AppComponent {
 
   }
 
+  public getResults$(){
+    return this.results.asObservable();
+  }
 
   logout() {
     this.authenticationService.logout();
@@ -40,6 +47,16 @@ export class AppComponent {
     );
     this.activatedRoute.queryParams.subscribe(
       (qps) => console.log(qps)
+    );
+  }
+
+  searchUser(value)
+  {
+    this.userService.searchUser(value).subscribe(
+      res => {
+        this.results.next(res['result'])
+      },
+      error => this.errorMessage = <any> error
     );
   }
 }

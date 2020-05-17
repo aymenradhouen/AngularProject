@@ -2,14 +2,13 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {LoginComponent} from "./login/login.component";
 import {RegisterComponent} from "./register/register.component";
-import {AppComponent} from "./app.component";
 import {ArticleComponent} from "./article/article.component";
-import {AddArticleComponent} from "./add-article/add-article.component";
 import {EditArticleComponent} from "./edit-article/edit-article.component";
 import {AuthGuard} from "./helpers/auth.guard";
 import {HomeComponent} from "./home/home.component";
 import {ProfileComponent} from "./profile/profile.component";
-import {ListArticleComponent} from "./list-article/list-article.component";
+import {ListUserSearchComponent} from "./list-user-search/list-user-search.component";
+import {ShowProfileComponent} from "./show-profile/show-profile.component";
 
 
 const routes: Routes = [
@@ -32,25 +31,26 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: 'add-article',
-    component: AddArticleComponent,
-    canActivate: [AuthGuard]
-  },
-  {
-    path: 'edit-article',
+    path: 'edit-article/:id',
     component: EditArticleComponent,
     canActivate: [AuthGuard]
   },
   {
-    path: 'profile',
+    path: 'edit-profile',
     component: ProfileComponent,
     canActivate: [AuthGuard]
   },
   {
-    path: 'profileArticle',
-    component: ListArticleComponent,
+    path: 'list-user-search',
+    component: ListUserSearchComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'my-profile',
+    component: ShowProfileComponent,
     canActivate: [AuthGuard]
   }
+
 
 ];
 

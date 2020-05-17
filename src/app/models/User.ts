@@ -8,6 +8,7 @@ export class User {
   lastName: String;
   about: String;
   hobbies: String;
+  phone: number;
   image: String;
   imageCouverture: String;
   facebookLink: String;

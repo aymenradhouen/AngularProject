@@ -1,0 +1,176 @@
+
+  <div class="container">
+    <img src="{{user.imageCouverture}}" alt="" width="100%" height="100%"/>
+    <div class="card social-prof">
+      <div class="card-body">
+        <div class="wrapper">
+          <img src="{{user.image}}" alt="" class="user-profile">
+          <h3>{{user.firstName}} {{user.lastName}}</h3>
+          <br>
+        </div>
+        <div class="row ">
+          <div class="col-lg-12">
+            <ul class=" nav nav-tabs justify-content-center s-nav">
+              <li><a class="active" href="#">Timeline</a></li>
+              <li><a href="#">About</a></li>
+              <li><a href="#">Friends</a></li>
+              <li><a href="#">Photos</a></li>
+              <li><a href="#">Videos</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-3">
+        <div class="card">
+          <div class="card-body">
+            <div class="h5 text-blue"></div>
+            <div class="h7 "><strong>Name :</strong> {{user.firstName}} {{user.lastName}}</div>
+            <div class="h7"><strong>About :</strong> {{user.about}}
+            </div>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+              <div class="h6 text-muted">Friends</div>
+              <div class="h5">5.2342</div>
+            </li>
+            <li class="list-group-item">
+              <div class="h6 text-muted">Posts</div>
+              <div class="h5">{{articles.length}}</div>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-lg-6 gedf-main">
+        <!--- \\\\\\\Post-->
+        <div class="card social-timeline-card">
+          <div class="card-header">
+            <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link active" id="posts-tab" data-toggle="tab" href="#posts" role="tab" aria-controls="posts" aria-selected="true">Share a post</a>
+              </li>
+            </ul>
+          </div>
+          <div class="card-body">
+                <form [formGroup]="postForm" (ngSubmit)="onSubmit()">
+                <div class="form-group">
+                  <input type="text" class="form-control" formControlName="title" id="title" placeholder="Title" [ngClass]="{ 'is-invalid': submitted && f.title.errors }" >
+                  <div *ngIf="submitted && f.title.errors" class="invalid-feedback">
+                    <div *ngIf="f.title.errors.required">Title is required</div>
+                  </div>
+                  <br>
+                  <div class="custom-file">
+                    <input type="file" name="image" class="form-control" id="image" accept="image/jpeg, image/jpg, image/png" [ngClass]="{ 'is-invalid': submitted && f.image.errors }" (change)="onFileChange($event)">
+                    <label class="custom-file-label" for="image">Upload image</label>
+                    <div *ngIf="submitted && f.image.errors" class="invalid-feedback">
+                      <div *ngIf="f.image.errors.required">Image is required</div>
+                    </div>
+                    <input type="hidden" name="fileHidden" formControlName="image"/>
+                  </div>
+                  <br><br>
+                  <textarea rows="5" class="form-control" formControlName="content" id="content" placeholder="Content" [ngClass]="{ 'is-invalid': submitted && f.content.errors }"></textarea>
+                  <div *ngIf="submitted && f.content.errors" class="invalid-feedback">
+                    <div *ngIf="f.content.errors.required">Content is required</div>
+                  </div>
+                </div>
+            <div class="btn-toolbar justify-content-between">
+              <div class="btn-group">
+                <button type="submit" class="btn btn-primary" [disabled]="postForm.invalid">
+                  <ng-container *ngIf="submitted; else defaultText">
+                    <div class="loader"></div>
+                  </ng-container>
+                </button>
+                <ng-template #defaultText>Submit</ng-template>
+              </div>
+              <div class="btn-group">
+                <button id="btnGroupDrop1" type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="fa fa-globe"></i>
+                </button>
+                <div class="dropdown-menu " aria-labelledby="btnGroupDrop1">
+                  <a class="dropdown-item" href="#"><i class="fa fa-globe"></i> Public</a>
+                  <a class="dropdown-item" href="#"><i class="fa fa-users"></i> Friends</a>
+                  <a class="dropdown-item" href="#"><i class="fa fa-user"></i> Just me</a>
+                </div>
+              </div>
+            </div>
+          </form>
+          </div>
+        </div>
+        <!-- Post /////-->
+        <!--- \\\\\\\Post-->
+        <div *ngIf="articles.length > 0">
+        <div class="card social-timeline-card"  *ngFor="let article of articles">
+          <div class="card-header">
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="mr-2">
+                  <img class="rounded-circle" width="45" src="{{user.image}}" alt="">
+                </div>
+                <div class="ml-2">
+                  <div class="h5 m-0 text-blue">{{user.firstName}} {{user.lastName}}</div>
+                </div>
+              </div>
+              <div>
+                <div class="dropdown">
+                  <button class="btn btn-link dropdown-toggle" type="button" id="gedf-drop11" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa fa-ellipsis-h"></i>
+                  </button>
+                  <div class="dropdown-menu dropdown-menu-right" aria-labelledby="gedf-drop11">
+                    <a class="dropdown-item" routerLink="/edit-article/{{article.id}}">Update</a>
+                    <a class="dropdown-item" (click)="deleteArticle(article.id)">Delete</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-body">
+            <div class="text-muted h7 mb-2"> <i class="fa fa-clock-o"></i>{{article.createdAt | date: 'yy/mm/dd hh:mm'}}</div>
+
+              <h5 class="card-title">{{article.title}}</h5>
+
+            <img src="{{url}}/{{article.image}}" alt="" class="img-fluid">
+            <p class="card-text">{{article.content}}</p>
+
+
+          </div>
+          <div class="card-footer">
+            <a class="card-link">
+              <i class="fa fa-heart"></i> Like</a>
+            <a class="card-link" (click)="show()"><i class="fa fa-comment"></i> Comment</a>
+          </div>
+          <div *ngIf = "isShow">
+            <form>
+              <textarea name="" class="form-control" id="" cols="30" rows="1" placeholder="Your Comment !"></textarea>
+            </form>
+          </div>
+        </div>
+
+        <!-- Post /////-->
+        </div>
+
+      </div>
+
+      <div class="col-lg-3">
+        <div class="card social-timeline-card">
+          <div class="card-body">
+            <h5 class="card-title">People you may know</h5>
+            <ul class="friend-list">
+              <li *ngFor="let user of users | slice:0:5">
+                <div *ngIf="user.email !== username">
+                  <div class="left">
+                    <img src="{{user.image}}" alt="">
+                  </div>
+                  <div class="right">
+                    <h3>{{user.firstName}} {{user.lastName}}</h3>
+                    <p>10 Friends</p>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

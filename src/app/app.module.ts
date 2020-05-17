@@ -7,20 +7,16 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
-import {AuthService} from "./services/auth.service";
 import { ArticleComponent } from './article/article.component';
-import { AddArticleComponent } from './add-article/add-article.component';
 import { EditArticleComponent } from './edit-article/edit-article.component';
-import { DeleteArticleComponent } from './delete-article/delete-article.component';
-import {ArticleService} from "./services/article.service";
-import {AuthGuard} from "./helpers/auth.guard";
 import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
 import {JwtInterceptor} from "./helpers/jwt.interceptor";
 import {ErrorInterceptor} from "./helpers/error.interceptor";
-import { ListArticleComponent } from './list-article/list-article.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {DataTablesModule} from "angular-datatables";
+import { ListUserSearchComponent } from './list-user-search/list-user-search.component';
+import { ShowProfileComponent } from './show-profile/show-profile.component';
 
 @NgModule({
   declarations: [
@@ -28,12 +24,11 @@ import {DataTablesModule} from "angular-datatables";
     RegisterComponent,
     LoginComponent,
     ArticleComponent,
-    AddArticleComponent,
     EditArticleComponent,
-    DeleteArticleComponent,
     HomeComponent,
     ProfileComponent,
-    ListArticleComponent,
+    ListUserSearchComponent,
+    ShowProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -42,7 +37,7 @@ import {DataTablesModule} from "angular-datatables";
     AppRoutingModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    DataTablesModule
+    DataTablesModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

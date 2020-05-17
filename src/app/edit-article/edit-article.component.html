@@ -1,1 +1,40 @@
-<p>edit-article works!</p>
+<div class="container">
+  <div class="row">
+
+    <div class="col-md-8 col-md-offset-2">
+
+      <h1>Create post</h1>
+
+      <form (ngSubmit)="editPost(title, content)">
+
+        <div class="form-group has-error">
+          <label>Title <span class="require">*</span></label>
+          <input type="text" [(ngModel)]="title" class="form-control" name="title" id="title" />
+          <div *ngIf="submitted" class="invalid-feedback">
+            <div>Content is required</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Content</label>
+          <textarea rows="5" class="form-control" [(ngModel)]="content" name="content" id="content"></textarea>
+        </div>
+
+        <div class="form-group">
+          <p><span class="require">*</span> - required fields</p>
+        </div>
+
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary">
+            Edit
+          </button>
+          <button routerLink="/my-profile" class="btn btn-default">
+            Cancel
+          </button>
+        </div>
+
+      </form>
+    </div>
+
+  </div>
+</div>

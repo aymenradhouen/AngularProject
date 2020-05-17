@@ -29,6 +29,7 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getArticles();}
+    this.getArticles();
+  }
 
 }

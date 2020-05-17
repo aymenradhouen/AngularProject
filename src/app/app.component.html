@@ -14,19 +14,15 @@
           Profile
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" routerLink="/profile">Update my profile</a>
-        </div>
-      </li>
-      <li class="nav-item dropdown" *ngIf="currentUser">
-        <a class="nav-link dropdown-toggle" id="navbarDropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Publications
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" routerLink="/add-article">Ajouter une publication</a>
-          <a class="dropdown-item" routerLink="/profileArticle">Mes publications</a>
+          <a class="dropdown-item" routerLink="/my-profile">My profile</a>
+          <a class="dropdown-item" routerLink="/edit-profile">Update my profile</a>
         </div>
       </li>
     </ul>
+    <form class="form-inline mr-lg-5" *ngIf="currentUser">
+      <input  class="form-control mr-sm-3" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-success mr-sm-3" type="submit">Search</button>
+    </form>
     <ul class="navbar-nav">
       <li *ngIf="!currentUser"><a class="nav-link"  routerLink="/login" routerLinkActive="active">Login</a></li>
       <li *ngIf="!currentUser"><a class="nav-link"  routerLink="/register" routerLinkActive="active">Register</a></li>
@@ -36,7 +32,7 @@
   </div>
 </nav>
 <div class="row">
-  <div class="col-1" *ngIf="currentUser">
+  <div class="col-1" *ngIf="currentUser && router.url !== '/my-profile'">
     <div class="sidenav">
 
             <div class="card hovercard">
