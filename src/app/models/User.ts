@@ -9,8 +9,8 @@ export class User {
   about: String;
   hobbies: String;
   phone: number;
-  image: String;
-  imageCouverture: String;
+  image: { filetype: any; filename: any; value: string };
+  imageCouverture: { filetype: any; filename: any; value: string };
   facebookLink: String;
   twitterLink: String;
   createdAt: Date;

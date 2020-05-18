@@ -43,7 +43,12 @@ export class ArticleService {
     const headers = new HttpHeaders();
     headers.append('content-type', 'application/json');
     headers.append('Authorization', 'Bearer ' + this.token );
-    return this.http.put(this.uri + '/' + id , JSON.stringify(article),{headers});
+    return this.http.put(this.uri + '/' + id , JSON.stringify(article),{headers})
+      .pipe(
+        tap(() => {
+          this._refresh$.next();
+        })
+      );
   }
 
   deleteArticle(id: any) {
@@ -58,6 +63,13 @@ export class ArticleService {
     headers.append('Authorization', 'Bearer ' + this.token );
     return this.http.get(this.uri + '/list/' + email,{headers});
   }
+
+  peopleArticle(id) {
+    const headers = new HttpHeaders();
+    headers.append('Authorization', 'Bearer ' + this.token );
+    return this.http.get(this.uri + '/profile/' + id,{headers});
+  }
+
   valueArticle(id)
   {
     const headers = new HttpHeaders();

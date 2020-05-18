@@ -14,9 +14,10 @@ export class AppComponent {
   title = 'ngApp';
   public id: number;
   currentUser: User;
-  user : User[] = [];
+  user : User;
   errorMessage: string;
   private results = new BehaviorSubject([]);
+  private url = "http://localhost:8000/uploads";
 
 
   constructor(private router: Router,

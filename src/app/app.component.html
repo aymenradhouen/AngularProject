@@ -32,15 +32,15 @@
   </div>
 </nav>
 <div class="row">
-  <div class="col-1" *ngIf="currentUser && router.url !== '/my-profile'">
+  <div class="col-1" *ngIf="currentUser && router.url !== '/my-profile' || router.url !== '/profile/'">
     <div class="sidenav">
 
             <div class="card hovercard">
               <div class="cardheader">
-                <img alt="" height="100%" src="{{user.imageCouverture}}" width="100%">
+                <img alt="" height="100%" src="{{url}}/{{user.imageCouverture}}" width="100%">
               </div>
               <div class="avatar">
-                <img alt="" src="{{user.image}}">
+                <img alt="" src="{{url}}/{{user.image}}">
               </div>
               <div class="info">
                 <div class="title">
