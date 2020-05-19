@@ -77,5 +77,12 @@ export class ArticleService {
     return this.http.get<any>(this.uri + '/' + id,{headers});
   }
 
+  likeArticle(email, id)
+  {
+    const headers = new HttpHeaders();
+    headers.append('Authorization', 'Bearer ' + this.token );
+    return this.http.patch<any>(this.uri + '/like/' + email + '/' + id,{headers});
+  }
+
 
 }

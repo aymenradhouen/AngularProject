@@ -1,3 +1,5 @@
+import {Article} from "./Article";
+
 export class User {
   id: number;
   username: String;

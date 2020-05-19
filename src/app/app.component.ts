@@ -13,6 +13,7 @@ import {BehaviorSubject} from "rxjs";
 export class AppComponent {
   title = 'ngApp';
   public id: number;
+  public idd : number;
   currentUser: User;
   user : User;
   errorMessage: string;
@@ -20,12 +21,19 @@ export class AppComponent {
   private url = "http://localhost:8000/uploads";
 
 
+
   constructor(private router: Router,
               private authenticationService: AuthService,
               private activatedRoute: ActivatedRoute,
-              private userService: UserService) {
+              private userService: UserService,
+              private route: ActivatedRoute) {
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
+    this.idd = this.route.snapshot.params['id'];
+  }
 
+  public getId()
+  {
+    return this.idd;
   }
 
   public getResults$(){
@@ -45,9 +53,6 @@ export class AppComponent {
           (error) => this.router.navigate(['/'])
         );
       }
-    );
-    this.activatedRoute.queryParams.subscribe(
-      (qps) => console.log(qps)
     );
   }
 

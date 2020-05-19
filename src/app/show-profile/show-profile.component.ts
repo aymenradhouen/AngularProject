@@ -6,6 +6,8 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ArticleService} from "../services/article.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {finalize} from "rxjs/operators";
+import {CommentService} from "../services/comment.service";
+import {Comment} from "../models/Comment";
 
 @Component({
   selector: 'app-show-profile',
@@ -14,12 +16,12 @@ import {finalize} from "rxjs/operators";
 })
 export class ShowProfileComponent implements OnInit {
 
-  myData: Article[] = [];
+  comments: Comment[] = [];
   user : User;
   users : User[] = [];
   errorMessage: string;
-  article: Article;
   postForm: FormGroup;
+  commentForm: FormGroup;
   submitted = false;
   private url = "http://localhost:8000/articlesUploads";
   private urll = "http://localhost:8000/uploads";
@@ -44,7 +46,7 @@ export class ShowProfileComponent implements OnInit {
 
 
 
-  constructor(private userService: UserService, private formBuilder: FormBuilder, private articleService: ArticleService, public router: Router, private route: ActivatedRoute) {
+  constructor(private commentService: CommentService, private userService: UserService, private formBuilder: FormBuilder, private articleService: ArticleService, public router: Router, private route: ActivatedRoute) {
     this.id = this.route.snapshot.params['id'];
   }
 
@@ -55,6 +57,9 @@ export class ShowProfileComponent implements OnInit {
       image: [null, Validators.required],
       content: ['', Validators.required]
     });
+    this.commentForm = this.formBuilder.group({
+      content: ['', Validators.required]
+    });
     this.articleService.getRefresh()
       .subscribe(() => {
         this.getArticle();
@@ -63,12 +68,68 @@ export class ShowProfileComponent implements OnInit {
       .subscribe(() => {
         this.getUser();
       })
+    this.commentService.getRefresh()
+      .subscribe(() => {
+        this.getComments(this.id);
+      })
+
     this.getArticle();
     this.getAllUsers();
+
   }
 
   showModal(id: number) {
     this.id = id;
+    this.getComments(id);
+  }
+
+  likeArticle(id)
+  {
+    this.articleService.likeArticle(localStorage.getItem('username'),id)
+      .subscribe(res => console.log(res))
+  }
+
+
+
+
+  getAllComment()
+  {
+    this.commentService.getAllComments()
+      .subscribe(
+        res => {
+
+        },
+        error => this.errorMessage = <any> error
+      )
+  }
+  getComments(id)
+  {
+    this.commentService.getComments(id)
+      .subscribe(
+        res => {
+          this.comments = res['result']
+        },
+        error => this.errorMessage = <any> error
+      )
+  }
+
+  addComment() {
+    this.submitted = true;
+
+    if (this.commentForm.invalid) {
+      return;
+    }
+
+    this.commentService.addComment(this.commentForm.value,localStorage.getItem('username') ,this.id)
+      .pipe(
+        finalize(() => this.submitted = false),
+      ).subscribe(
+      res =>
+      {
+        this.postForm.reset();
+      },
+      err => this.errorMessage= <any>err
+    )
   }
 
   editPost(title, content) {
@@ -128,8 +189,9 @@ export class ShowProfileComponent implements OnInit {
   }
 
 
-  show(){
+  show(id: number){
     this.isShow = !this.isShow;
+    this.id = id;
   }
 
   getUser()
@@ -203,6 +265,7 @@ export class ShowProfileComponent implements OnInit {
 
 
   get f() { return this.postForm.controls; }
+  get f1() { return this.commentForm.controls; }
 
   onSubmit() {
     this.submitted = true;
@@ -217,7 +280,6 @@ export class ShowProfileComponent implements OnInit {
       ).subscribe(
         res =>
         {
-        this.myData = res['result'];
         this.postForm.reset();
         },
         err => this.errorMessage= <any>err

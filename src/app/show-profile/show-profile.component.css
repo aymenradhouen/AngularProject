@@ -660,4 +660,18 @@ img {
   border-radius: 0.25rem;
 }
 
+.title {
+  font-size: 14px;
+  font-weight:bold;
+}
+.komen {
+  font-size:14px;
+}
+.geser {
+  margin-left:55px;
+  margin-top:5px;
+}
+
+
+
 
