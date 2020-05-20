@@ -7,11 +7,11 @@
           <div class="cover">
             <div class="gray-shade" data-toggle="modal" data-target="#myModalImageCouverture"></div>
             <figure>
-              <img src="{{urll}}/{{user.imageCouverture}}" class="" alt="profile cover" width="50px" height="450px">
+              <img src="{{urll}}/{{user?.imageCouverture}}" class="" alt="profile cover" width="50px" height="450px">
             </figure>
             <div class="cover-body d-flex justify-content-between align-items-center">
               <div>
-                <img class="profile-pic" src="{{urll}}/{{user.image}}" alt="profile" data-toggle="modal" data-target="#myModalImage">
+                <img class="profile-pic" src="{{urll}}/{{user?.image}}" alt="profile" data-toggle="modal" data-target="#myModalImage">
                 <span class="profile-name">{{user.firstName}} {{user.lastName}}</span>
               </div>
               <div class="d-none d-md-block">
@@ -168,7 +168,7 @@
             <div class="d-flex justify-content-between align-items-center">
               <div class="d-flex justify-content-between align-items-center">
                 <div class="mr-2">
-                  <img class="rounded-circle" width="45" src="{{urll}}/{{user.image}}" alt="">
+                  <img class="rounded-circle" width="45" src="{{urll}}/{{user?.image}}" alt="">
                 </div>
                 <div class="ml-2">
                   <div class="h5 m-0 text-blue">{{user.firstName}} {{user.lastName}}</div>
@@ -196,12 +196,9 @@
             <img src="{{url}}/{{article.image}}" alt="" class="img-fluid">
             <p class="card-text">{{article.content}}</p>
 
-
           </div>
           <div class="card-footer">
-            <a class="card-link">
-              <i class="fa fa-heart"></i> Like</a>
-            <a class="card-link" (click)="showModal(article.id)" data-toggle="modal" data-target="#myModalComment"><i class="fa fa-comment"></i> Comment</a>
+            <a class="card-link" (click)="showModal(article.id)" data-toggle="modal" data-target="#myModalComment"><i class="fa fa-info-circle"></i> Details</a>
           </div>
         </div>
 
@@ -452,41 +449,64 @@
             <h4 class="modal-title">Add Comment</h4>
           </div>
           <div class="modal-body">
-            <form [formGroup]="commentForm" (ngSubmit)="addComment()">
+            <div class="container">
+              <div class="row">
+                <div class="col-md-5">
+                  <div class="project-info-box">
+                    <h5>Title:</h5>
+                    <p>{{article.title}}</p>
+                  </div><!-- / project-info-box -->
 
-              <div class="form-group">
-                <label><strong>Content</strong></label>
-                <textarea rows="5" class="form-control" formControlName="content" name="content" id="content2"></textarea>
+                  <div class="project-info-box mt-0">
+                    <h6>Content</h6>
+                    <p class="mb-0">{{article.content}}.</p>
+                  </div><!-- / project-info-box -->
+
+                </div><!-- / column -->
+
+                <div class="col-md-7">
+                  <img src="{{url}}/{{article.image}}" width="100%" height="100%" alt="project-image" class="rounded">
+                </div><!-- / column -->
               </div>
 
-              <div class="form-group">
-                <button type="submit" class="btn btn-primary">
-                  <ng-container *ngIf="submitted; else defaultText">
-                    <div class="loader"></div>
-                  </ng-container>
-                </button>
-                <ng-template #defaultText>Add</ng-template>
+              <form [formGroup]="commentForm" (ngSubmit)="addComment()">
+
+                <div class="form-group">
+                  <label><strong>Comment</strong></label>
+                  <textarea rows="1" class="form-control" formControlName="content" name="content" id="content2"></textarea>
+                </div>
+
+                <div class="form-group">
+                  <button type="submit" class="btn btn-primary" [disabled]="commentForm.invalid">
+                    <ng-container *ngIf="submitted; else defaultText">
+                      <div class="loader"></div>
+                    </ng-container>
+                  </button>
+                  <ng-template #defaultText>Add</ng-template>
+                </div>
+
+              </form>
+              <h4>Comments ({{comments.length}})</h4>
+              <div class="media" *ngFor="let comment of comments">
+                <div class="media-left">
+                  <img src="{{urll}}/{{comment.user.image}}"  class="media-object" style="width:40px">
+                </div>
+                <div class="media-body" style="margin-left: 5px; margin-top: 5px;">
+                  <h4 class="media-heading title"><a target="_blank" href="/profile/{{comment.user.id}}">{{comment.user.firstName}} {{comment.user.lastName}}</a>  </h4>
+                  <p class="komen">
+                    {{comment.content}}<br>
+                  </p>
+                </div>
+                <div class="media-right" *ngIf="comment.user.email === username">
+                  <a (click)="deleteComment(comment.id)" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                </div>
               </div>
 
-            </form>
-            <h4>Comments ({{comments.length}})</h4>
-            <div class="media" *ngFor="let comment of comments">
-              <div class="media-left">
-                <img src="http://fakeimg.pl/50x50" class="media-object" style="width:40px">
-              </div>
-              <div class="media-body" style="
-    margin-left: 5px;
-    margin-top: 5px;
-">
-                <h4 class="media-heading title"> {{comment.firstName}} {{comment.lastName}} </h4>
-                <p class="komen">
-                  {{comment.content}}<br>
-                </p>
-              </div>
             </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-outline-primary" (click)="likeArticle(article.id)"><i class="fa fa-thumbs-up"></i> Like ({{articless.length}})</button>
           </div>
         </div>
       </div>

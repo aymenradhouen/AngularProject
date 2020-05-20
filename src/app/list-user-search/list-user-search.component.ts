@@ -14,6 +14,8 @@ export class ListUserSearchComponent implements OnInit {
 
   users: User[] = [];
   errorMessage: string;
+  private url = "http://localhost:8000/uploads";
+  username = localStorage.getItem('username');
 
   constructor(private userService: UserService) {}
 

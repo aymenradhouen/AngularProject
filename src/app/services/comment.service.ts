@@ -46,4 +46,11 @@ export class CommentService {
       })
     );
   }
+
+  deleteComment(id: any) {
+    const headers = new HttpHeaders();
+    headers.append('content-type', 'application/json');
+    headers.append('Authorization', 'Bearer ' + this.token );
+    return this.http.delete(this.uri + '/delete/' + id,{headers});
+  }
 }

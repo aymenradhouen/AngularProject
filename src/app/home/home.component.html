@@ -1,98 +1,166 @@
 
-    <div class="container">
+<!--    <div class="container">-->
 
-      <div class="row">
+<!--      <div class="row">-->
 
-        <!-- Blog Entries Column -->
-        <div class="col-md-8">
+<!--        &lt;!&ndash; Blog Entries Column &ndash;&gt;-->
+<!--        <div class="col-md-8">-->
 
-          <h1 class="my-4">Home</h1>
+<!--          <h1 class="my-4">Home</h1>-->
 
-          <!-- Blog Post -->
-          <div *ngFor="let article of articles">
-            <div class="card mb-4">
-              <img class="card-img-top" src="{{url}}/{{article.image}}" alt="Card image cap">
-              <div class="card-body">
-                <h2 class="card-title">{{article.title}}</h2>
-                <p class="card-text">{{article.content}}</p>
-                <a href="#" class="btn btn-primary">Read More &rarr;</a>
-              </div>
-              <div class="card-footer text-muted">
-                Posted on {{article.createdAt | date: 'dd/MM/yyyy'}} by
-                <a href="#">{{article['user']['loginName']}}</a>
+<!--          &lt;!&ndash; Blog Post &ndash;&gt;-->
+<!--          <div *ngFor="let article of articles">-->
+<!--            <div class="card mb-4">-->
+<!--              <img class="card-img-top" src="{{url}}/{{article.image}}" alt="Card image cap">-->
+<!--              <div class="card-body">-->
+<!--                <h2 class="card-title">{{article.title}}</h2>-->
+<!--                <p class="card-text">{{article.content}}</p>-->
+<!--                <a href="#" class="btn btn-primary">Read More &rarr;</a>-->
+<!--              </div>-->
+<!--              <div class="card-footer text-muted">-->
+<!--                Posted on {{article.createdAt | date: 'dd/MM/yyyy'}} by-->
+<!--                <a href="#">{{article['user']['loginName']}}</a>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+
+
+<!--        </div>-->
+
+<!--        &lt;!&ndash; Sidebar Widgets Column &ndash;&gt;-->
+<!--        <div class="col-md-4">-->
+
+<!--          &lt;!&ndash; Search Widget &ndash;&gt;-->
+<!--          <div class="card my-4">-->
+<!--            <h5 class="card-header">Search</h5>-->
+<!--            <div class="card-body">-->
+<!--              <div class="input-group">-->
+<!--                <input type="text" class="form-control" placeholder="Search for...">-->
+<!--                <span class="input-group-btn">-->
+<!--                <button class="btn btn-secondary" type="button">Go!</button>-->
+<!--              </span>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+
+<!--          &lt;!&ndash; Categories Widget &ndash;&gt;-->
+<!--          <div class="card my-4">-->
+<!--            <h5 class="card-header">Categories</h5>-->
+<!--            <div class="card-body">-->
+<!--              <div class="row">-->
+<!--                <div class="col-lg-6">-->
+<!--                  <ul class="list-unstyled mb-0">-->
+<!--                    <li>-->
+<!--                      <a href="#">Web Design</a>-->
+<!--                    </li>-->
+<!--                    <li>-->
+<!--                      <a href="#">HTML</a>-->
+<!--                    </li>-->
+<!--                    <li>-->
+<!--                      <a href="#">Freebies</a>-->
+<!--                    </li>-->
+<!--                  </ul>-->
+<!--                </div>-->
+<!--                <div class="col-lg-6">-->
+<!--                  <ul class="list-unstyled mb-0">-->
+<!--                    <li>-->
+<!--                      <a href="#">JavaScript</a>-->
+<!--                    </li>-->
+<!--                    <li>-->
+<!--                      <a href="#">CSS</a>-->
+<!--                    </li>-->
+<!--                    <li>-->
+<!--                      <a href="#">Tutorials</a>-->
+<!--                    </li>-->
+<!--                  </ul>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+
+<!--          &lt;!&ndash; Side Widget &ndash;&gt;-->
+<!--          <div class="card my-4">-->
+<!--            <h5 class="card-header">Side Widget</h5>-->
+<!--            <div class="card-body">-->
+<!--              You can put anything you want inside of these side widgets. They are easy to use, and feature the new Bootstrap 4 card containers!-->
+<!--            </div>-->
+<!--          </div>-->
+
+<!--        </div>-->
+
+<!--      </div>-->
+<!--      &lt;!&ndash; /.row &ndash;&gt;-->
+
+<!--    </div>-->
+<!--    &lt;!&ndash; /.container &ndash;&gt;-->
+
+
+<!--&lt;!&ndash; Page Content &ndash;&gt;-->
+
+<div class="blog-wrap">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-9 blog-left">
+        <article class="blog-post" *ngFor="let article of articles">
+          <div class="featured-post">
+            <a href="#">
+              <img src="{{url}}/{{article?.image}}" alt="">
+            </a>
+          </div>
+          <div class="divider25"></div>
+          <div class="content">
+            <h3 class="title">
+              <a href="#">Title : {{article.title}}</a>
+            </h3>
+            <ul class="meta-post">
+              <li class="date">
+                <a href="#">
+                  {{article.createdAt | date: ('medium')}}
+                </a>
+              </li>
+            </ul>
+            <div class="entry-post">
+              <p>{{article.content}}.</p>
+              <div class="more-link">
+                <a href="#" class="read-more-btn">Details</a>
               </div>
             </div>
           </div>
-
-
+        </article>
+        <div class="blog-pagination">
+          <ul class="">
+            <li class="prev">
+              <a href="#">
+                <i class="fas fa-chevron-left"></i>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="waves-effect waves-teal">01</a>
+            </li>
+            <li>
+              <a href="#" class="waves-effect waves-teal">02</a>
+            </li>
+            <li class="active">
+              <a href="#" class="waves-effect waves-teal">03</a>
+            </li>
+            <li>
+              <a href="#" class="waves-effect waves-teal">04</a>
+            </li>
+            <li class="next">
+              <a href="#">
+                <i class="fas fa-chevron-right"></i>
+              </a>
+            </li>
+          </ul>
         </div>
-
-        <!-- Sidebar Widgets Column -->
-        <div class="col-md-4">
-
-          <!-- Search Widget -->
-          <div class="card my-4">
-            <h5 class="card-header">Search</h5>
-            <div class="card-body">
-              <div class="input-group">
-                <input type="text" class="form-control" placeholder="Search for...">
-                <span class="input-group-btn">
-                <button class="btn btn-secondary" type="button">Go!</button>
-              </span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Categories Widget -->
-          <div class="card my-4">
-            <h5 class="card-header">Categories</h5>
-            <div class="card-body">
-              <div class="row">
-                <div class="col-lg-6">
-                  <ul class="list-unstyled mb-0">
-                    <li>
-                      <a href="#">Web Design</a>
-                    </li>
-                    <li>
-                      <a href="#">HTML</a>
-                    </li>
-                    <li>
-                      <a href="#">Freebies</a>
-                    </li>
-                  </ul>
-                </div>
-                <div class="col-lg-6">
-                  <ul class="list-unstyled mb-0">
-                    <li>
-                      <a href="#">JavaScript</a>
-                    </li>
-                    <li>
-                      <a href="#">CSS</a>
-                    </li>
-                    <li>
-                      <a href="#">Tutorials</a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Side Widget -->
-          <div class="card my-4">
-            <h5 class="card-header">Side Widget</h5>
-            <div class="card-body">
-              You can put anything you want inside of these side widgets. They are easy to use, and feature the new Bootstrap 4 card containers!
-            </div>
-          </div>
-
-        </div>
-
       </div>
-      <!-- /.row -->
-
+      <div class="col-md-3 sidebar">
+        <div class="widget widget-search">
+          <form action="#" method="get" accept-charset="utf-8">
+            <input type="text" name="widget-search" placeholder="Search">
+          </form>
+        </div>
+      </div>
     </div>
-    <!-- /.container -->
-
-
-<!-- Page Content -->
+  </div>
+</div>

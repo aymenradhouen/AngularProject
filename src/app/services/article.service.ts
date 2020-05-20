@@ -24,7 +24,7 @@ export class ArticleService {
   getArticles(): Observable<any>{
     const headers = new HttpHeaders();
     headers.append('Authorization', 'Bearer ' + this.token );
-    return this.http.get<any>(this.uri,{headers}).pipe();
+    return this.http.get<any>(this.uri,{headers});
   }
 
   addArticle(article: Article, email) {
@@ -81,8 +81,28 @@ export class ArticleService {
   {
     const headers = new HttpHeaders();
     headers.append('Authorization', 'Bearer ' + this.token );
-    return this.http.patch<any>(this.uri + '/like/' + email + '/' + id,{headers});
+    return this.http.post<any>(this.uri + '/like/' + email + '/' + id,{headers});
   }
+
+  getAllArticleLikes(id)
+  {
+    const headers = new HttpHeaders();
+    headers.append('Authorization', 'Bearer ' + this.token );
+    return this.http.get<any>(this.uri + '/like/' + id,{headers})
+      .pipe(
+        tap(() => {
+          this._refresh$.next();
+        })
+      );
+  }
+
+  getOneArticles(id): Observable<any>{
+    const headers = new HttpHeaders();
+    headers.append('Authorization', 'Bearer ' + this.token );
+    return this.http.get<any>(this.uri + '/' + id,{headers});
+  }
+
+
 
 
 }

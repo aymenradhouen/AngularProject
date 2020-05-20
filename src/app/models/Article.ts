@@ -1,4 +1,3 @@
-import {Comment} from "./Comment";
 
 export class Article{
   id: number;
@@ -6,5 +5,6 @@ export class Article{
   content: String;
   image: String;
   createdAt: Date;
+  likes: number;
 
 }

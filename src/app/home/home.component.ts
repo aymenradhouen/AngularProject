@@ -15,6 +15,7 @@ export class HomeComponent implements OnInit {
   loading = false;
   errorMessage: string;
   user : User;
+
   constructor(private articleService: ArticleService) { }
 
   getArticles() {

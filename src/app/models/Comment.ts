@@ -1,10 +1,9 @@
-import {Article} from "./Article";
+import {User} from "./User";
 
 export class Comment{
   id: number;
   content: String;
-  firstName: String;
-  lastName: String;
   createdAt: Date;
+  user : User;
 
 }

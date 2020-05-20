@@ -16,7 +16,9 @@ import {Comment} from "../models/Comment";
 })
 export class ShowProfileComponent implements OnInit {
 
-  comments: Comment[] = [];
+  articless : Article[] = [];
+  article : Article;
+  comments: Comment[];
   user : User;
   users : User[] = [];
   errorMessage: string;
@@ -72,6 +74,10 @@ export class ShowProfileComponent implements OnInit {
       .subscribe(() => {
         this.getComments(this.id);
       })
+    this.articleService.getRefresh()
+      .subscribe(() => {
+        this.getArticlesLikes(this.id);
+      })
 
     this.getArticle();
     this.getAllUsers();
@@ -81,6 +87,8 @@ export class ShowProfileComponent implements OnInit {
   showModal(id: number) {
     this.id = id;
     this.getComments(id);
+    this.getOneArticle(id);
+    this.getArticlesLikes(id);
   }
 
   likeArticle(id)
@@ -89,6 +97,27 @@ export class ShowProfileComponent implements OnInit {
       .subscribe(res => console.log(res))
   }
 
+  getOneArticle(id)
+  {
+    this.articleService.getOneArticles(id)
+      .subscribe(
+        res => {
+          this.article = res['result']
+        },
+        error => this.errorMessage = <any> error
+      )
+  }
+
+  getArticlesLikes(id)
+  {
+    this.articleService.getAllArticleLikes(id)
+      .subscribe(
+        res => {
+          this.articless = res['result']
+        },
+        error => this.errorMessage = <any> error
+      )
+  }
 
 
 
@@ -126,7 +155,7 @@ export class ShowProfileComponent implements OnInit {
       ).subscribe(
       res =>
       {
-        this.postForm.reset();
+        this.commentForm.reset();
       },
       err => this.errorMessage= <any>err
     )
@@ -307,6 +336,18 @@ export class ShowProfileComponent implements OnInit {
         console.log(articles);
       },
       error => this.articles = oldArticle
+    );
+  }
+
+  deleteComment(id)
+  {
+    const oldComment = [...this.comments];
+    this.comments = this.comments.filter((comment) => comment.id !== +id);
+    this.commentService.deleteComment(id).subscribe(
+      comment => {
+        console.log(comment);
+      },
+      error => this.comments = oldComment
     );
   }
 
