@@ -15,7 +15,7 @@
             <img src="{{url}}/{{user.image}}" alt="Member Photo">
           </div>
           <div class="team-content">
-            <h4>{{user.firstName}} {{user.lastName}}</h4>
+            <h4 routerLink="/profile/{{user.id}}">{{user.firstName}} {{user.lastName}}</h4>
             <h5>Website User</h5>
             <a href="" *ngIf="user.email !== username"><i class="fa fa-user-plus"></i> Add Friend</a>
             <div class="team-social">

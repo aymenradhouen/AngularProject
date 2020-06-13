@@ -18,7 +18,7 @@ export class ShowProfileComponent implements OnInit {
 
   articless : Article[] = [];
   article : Article;
-  comments: Comment[];
+  comments: Comment[] = [];
   user : User;
   users : User[] = [];
   errorMessage: string;
@@ -65,6 +65,7 @@ export class ShowProfileComponent implements OnInit {
     this.articleService.getRefresh()
       .subscribe(() => {
         this.getArticle();
+        this.getArticlesLikes(this.id);
       })
     this.userService.getRefresh()
       .subscribe(() => {
@@ -74,11 +75,6 @@ export class ShowProfileComponent implements OnInit {
       .subscribe(() => {
         this.getComments(this.id);
       })
-    this.articleService.getRefresh()
-      .subscribe(() => {
-        this.getArticlesLikes(this.id);
-      })
-
     this.getArticle();
     this.getAllUsers();
 
@@ -120,17 +116,6 @@ export class ShowProfileComponent implements OnInit {
   }
 
 
-
-  getAllComment()
-  {
-    this.commentService.getAllComments()
-      .subscribe(
-        res => {
-
-        },
-        error => this.errorMessage = <any> error
-      )
-  }
   getComments(id)
   {
     this.commentService.getComments(id)

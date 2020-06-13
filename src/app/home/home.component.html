@@ -100,7 +100,7 @@
 <div class="blog-wrap">
   <div class="container">
     <div class="row">
-      <div class="col-md-9 blog-left">
+      <div class="col-md-9 blog-left" *ngIf="articles.length > 0">
         <article class="blog-post" *ngFor="let article of articles">
           <div class="featured-post">
             <a href="#">
@@ -122,44 +122,87 @@
             <div class="entry-post">
               <p>{{article.content}}.</p>
               <div class="more-link">
-                <a href="#" class="read-more-btn">Details</a>
+                <a href="#" class="read-more-btn" (click)="showModal(article.id)" data-toggle="modal" data-target="#myModalComment">Details</a>
               </div>
             </div>
           </div>
         </article>
-        <div class="blog-pagination">
-          <ul class="">
-            <li class="prev">
-              <a href="#">
-                <i class="fas fa-chevron-left"></i>
-              </a>
-            </li>
-            <li>
-              <a href="#" class="waves-effect waves-teal">01</a>
-            </li>
-            <li>
-              <a href="#" class="waves-effect waves-teal">02</a>
-            </li>
-            <li class="active">
-              <a href="#" class="waves-effect waves-teal">03</a>
-            </li>
-            <li>
-              <a href="#" class="waves-effect waves-teal">04</a>
-            </li>
-            <li class="next">
-              <a href="#">
-                <i class="fas fa-chevron-right"></i>
-              </a>
-            </li>
-          </ul>
+      </div>
+      <div *ngIf="articles.length == 0">
+        <p>No posts</p>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="myModalComment" role="dialog">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Add Comment</h4>
+      </div>
+      <div class="modal-body">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-5">
+              <div class="project-info-box">
+                <h5>Title:</h5>
+                <p>{{article.title}}</p>
+              </div><!-- / project-info-box -->
+
+              <div class="project-info-box mt-0">
+                <h6>Content</h6>
+                <p class="mb-0">{{article.content}}.</p>
+              </div><!-- / project-info-box -->
+
+            </div><!-- / column -->
+
+            <div class="col-md-7">
+              <img src="{{url}}/{{article.image}}" width="100%" height="100%" alt="project-image" class="rounded">
+            </div><!-- / column -->
+          </div>
+
+          <form [formGroup]="commentForm" (ngSubmit)="addComment()">
+
+            <div class="form-group">
+              <label><strong>Comment</strong></label>
+              <textarea rows="1" class="form-control" formControlName="content" name="content" id="content2"></textarea>
+            </div>
+
+            <div class="form-group">
+              <button type="submit" class="btn btn-primary" [disabled]="commentForm.invalid">
+                <ng-container *ngIf="submitted; else defaultText">
+                  <div class="loader"></div>
+                </ng-container>
+              </button>
+              <ng-template #defaultText>Add</ng-template>
+            </div>
+
+          </form>
+          <h4>Comments ({{comments.length}})</h4>
+          <div class="media" *ngFor="let comment of comments">
+            <div class="media-left">
+              <img src="{{urll}}/{{comment.user.image}}"  class="media-object" style="width:40px">
+            </div>
+            <div class="media-body" style="margin-left: 5px; margin-top: 5px;">
+              <h4 class="media-heading title"><a target="_blank" href="/profile/{{comment.user.id}}">{{comment.user.firstName}} {{comment.user.lastName}}</a>  </h4>
+              <p class="komen">
+                {{comment.content}}<br>
+              </p>
+            </div>
+            <div class="media-right" *ngIf="comment.user.email === username">
+              <a (click)="deleteComment(comment.id)" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+            </div>
+          </div>
+          <div *ngFor="let article of articless">
+            <p>{{article.title}}</p>
+          </div>
+
         </div>
       </div>
-      <div class="col-md-3 sidebar">
-        <div class="widget widget-search">
-          <form action="#" method="get" accept-charset="utf-8">
-            <input type="text" name="widget-search" placeholder="Search">
-          </form>
-        </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-outline-primary" (click)="likeArticle(article.id)"><i class="fa fa-thumbs-up"></i> Like ({{articless.length}})</button>
       </div>
     </div>
   </div>
